@@ -1,0 +1,37 @@
+{
+    "name": "es7-cli",
+    "version": "1.0.0",
+    "description": "es7-cli",
+    "keywords": [
+        "es7",
+        "es7-cli"
+    ],
+    "author": {
+        "name": "STYZY",
+        "email": "styzyreal@126.com",
+        "url": "https://our.styzy.cn"
+    },
+    "bugs": {
+        "url": "https://github.com/styzy/es7-cli/issues",
+        "email": "styzyreal@126.com"
+    },
+    "license": "ISC",
+    "bin": {
+        "es7-cli": "./bin/es7-cli"
+    },
+    "main": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/styzy/es7-cli/issues"
+    },
+    "scripts": {},
+    "config": {
+        "port": "8080"
+    },
+    "dependencies": {
+        "chalk": "^1.1.3",
+        "co": "^4.6.0",
+        "co-prompt": "^1.0.0",
+        "commander": "^2.20.0"
+    }
+}
