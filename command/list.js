@@ -1,8 +1,8 @@
 'use strict'
 
-const config = require('../templates')
+const { templates } = require('../templates')
 
 module.exports = () => {
-    console.log(config.tpl)
+    console.table(templates)
     process.exit()
 }

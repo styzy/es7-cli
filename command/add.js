@@ -5,35 +5,56 @@ const prompt = require('co-prompt')
 const chalk = require('chalk')
 const fs = require('fs')
 
-const config = require('../templates')
+const templateConfig = require('../templates')
+const templates = templateConfig.templates
 
 module.exports = () => {
     co(function*() {
-        // 分步接收用户输入的参数
-        let tplName = yield prompt('Template name: ')
-        let gitUrl = yield prompt('Git https link: ')
-        let branch = yield prompt('Branch: ')
-
-        // 避免重复添加
-        if (!config.tpl[tplName]) {
-            config.tpl[tplName] = {}
-                // 过滤unicode字符
-            config.tpl[tplName]['url'] = gitUrl.replace(/[\u0000-\u0019]/g, '')
-            config.tpl[tplName]['branch'] = branch
-        } else {
-            console.log(chalk.red('Template has already existed!'))
+        // 判断是否有默认template
+        let isDefault = false
+        let hasDefault = templates.some(template => template.default)
+        if (!hasDefault) {
+            // 没有默认template，询问是否设置为默认
+            isDefault = (yield prompt('\n Default template?(y/n) ')) === 'y'
+            if (isDefault) {
+                console.log(chalk.blue(`\n Set Default!`));
+            }
+        }
+        let name = yield prompt('\n Template name: ')
+        if (!name) {
+            console.log(chalk.red('\n × Template name is necessary!'));
             process.exit()
         }
+        // 防止重复
+        if (templates.find(template => template.name === name)) {
+            console.log(chalk.red(`\n × Template ${name} has already existed!`));
+            process.exit()
+        }
+        console.log(chalk.blue(`\n Template name ${name}`));
+
+        let url = yield prompt('\n Git https link: ')
+        if (!url) {
+            console.log(chalk.red('\n × Template url is necessary!'));
+            process.exit()
+        }
+        console.log(chalk.blue(`\n Template url ${url}`));
+
+        let branch = yield prompt('\n Branch:(master) ') || 'master'
+
+        // 避免重复添加
+        templates.push({
+            default: isDefault,
+            name: name,
+            url: url.replace(/[\u0000-\u0019]/g, ''),
+            branch: branch
+        })
 
         // 把模板信息写入templates.json
-        fs.writeFile(__dirname + '/../templates.json', JSON.stringify(config), 'utf-8', (err) => {
+        fs.writeFile(__dirname + '/../templates.json', JSON.stringify(templateConfig), 'utf-8', (err) => {
             if (err) {
                 console.log(err)
             }
-            console.log(chalk.green('New template added!\n'))
-            console.log(chalk.grey('The last template list is: \n'))
-            console.log(config)
-            console.log('\n')
+            console.log(chalk.green('\n √ New template added!'))
             process.exit()
         })
     })
