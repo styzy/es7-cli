@@ -39,7 +39,7 @@ module.exports = () => {
         branch = targetTemplate.branch
 
         // git命令，远程拉取项目并自定义项目名
-        let cmdStr = `git clone ${gitUrl} ${projectName} && cd ${projectName} && git checkout ${branch} && git remote remove origin`
+        let cmdStr = `git clone ${gitUrl} ${projectName} && cd ${projectName} && git checkout ${branch} && rm -rf .git && git init && git add . && git commit -m 'init'`
 
         console.log(chalk.white('\n Start generating...'))
 
