@@ -32,6 +32,9 @@ module.exports = () => {
         }
         console.log(chalk.blue(`\n Template name ${name}`));
 
+        let defaultProjectName = (yield prompt('\n Default project name:(es7_project) ')) || 'es7_project'
+        console.log(chalk.blue(`\n Default project name ${defaultProjectName}`));
+
         let url = yield prompt('\n Git https link: ')
         if (!url) {
             console.log(chalk.red('\n × Template url is necessary!'));
@@ -39,12 +42,14 @@ module.exports = () => {
         }
         console.log(chalk.blue(`\n Template url ${url}`));
 
-        let branch = yield prompt('\n Branch:(master) ') || 'master'
+        let branch = (yield prompt('\n Branch:(master) ')) || 'master'
+        console.log(chalk.blue(`\n Branch ${branch}`));
 
         // 避免重复添加
         templates.push({
             default: isDefault,
             name: name,
+            defaultProjectName: defaultProjectName,
             url: url.replace(/[\u0000-\u0019]/g, ''),
             branch: branch
         })

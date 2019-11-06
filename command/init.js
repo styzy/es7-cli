@@ -32,7 +32,7 @@ module.exports = () => {
         console.log(chalk.blue(`\n Template name: ${targetTemplate.name}`))
 
         // 获取用户输入项目名称
-        projectName = (yield prompt('\n Project name:(es7_project) ')) || 'es7_project'
+        projectName = (yield prompt(`\n Project name:(${targetTemplate.defaultProjectName}) `)) || targetTemplate.defaultProjectName
         console.log(chalk.blue(`\n Project name: ${projectName}`))
 
         gitUrl = targetTemplate.url

@@ -1,1 +1,1 @@
-{"templates":[{"default":true,"name":"standard","url":"https://github.com/styzy/es7-cli-template","branch":"master"}]}
+{"templates":[{"default":true,"defaultProjectName":"es7_project","name":"standard","url":"https://github.com/styzy/es7-cli-template","branch":"master"},{"default":false,"name":"plugin","defaultProjectName":"es7_plugin","url":"https://github.com/styzy/es7-cli-template-plugin","branch":"master"}]}
